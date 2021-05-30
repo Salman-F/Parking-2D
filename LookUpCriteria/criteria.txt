@@ -1,0 +1,14 @@
+Projektkriterien:
+- alle Funktionen und Module und Klassen müssen Docstrings nach z.B. Google (Docstrings) haben (20%)
+- alle Funktionen sowie Klassen müssen jeweils 2 Testbeschreibungen haben (10%)
+- Eigenleistung: geeignetes Logverfahren suchen und anwenden (10%)
+- Codequalität und Stil (20%)
+- Funktionalität (20%) (requirement Information --- welche Module Frameworks/Versionen/OS ... )
+
+weitere Kriterien (20%)
+- wir wollen am Ende kein kundenfähiges System... 
+- Besondere Bemühungen + Aufwand + Elemente (Sound, Grafikdateien, Gameplay, ... )
+- UI/UX (Intuitivität)
+- Teamgröße berücksichtigen (pi mal Daumen max. 48 Stunden pro Person Aufwand)
+
+Bonuspunkte: --- (optional) - Copy+Paste vs. Eigenaufwand
