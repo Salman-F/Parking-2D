@@ -19,9 +19,9 @@ def main():
     
     # To remove the default stderr output
     logger.remove()
-    logger.add(LOGFILE , level="INFO", mode="w")
+    logger.add(LOG_FILE , level="INFO", mode="w")
 
-    player = Player(BASICCARIMAGE, STARTX, STARTY)
+    player = Player(BASICCAR_IMAGE, START_X, START_Y)
     
     game = Game()
     menu = Menu(game, player)

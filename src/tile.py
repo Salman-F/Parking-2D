@@ -10,7 +10,7 @@ class Tile(pygame.sprite.Sprite):
         
         if image == GOAL:
             #TODO also needs to know what level it is
-            self.image = pygame.transform.scale(self.image, (BLOCK_SIZE*GOALL1W, BLOCK_SIZE*GOALL1H))
+            self.image = pygame.transform.scale(self.image, (BLOCK_SIZE*GOALL1_W, BLOCK_SIZE*GOALL1_H))
         
         self.rect = self.image.get_rect()
         self.rect.x = x
