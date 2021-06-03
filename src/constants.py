@@ -1,3 +1,12 @@
+"""Constant file
+
+This File contains all constants needed in the Code
+
+    Attributes:
+        name: SALFIC
+        date: 03.06.2021
+        version: 0.0.1
+"""
 import os
 
 # WINDOW CONSTANTS
@@ -29,6 +38,7 @@ SPACE_KEY = os.path.join(os.path.dirname( __file__ ),"..", "images\menu", "space
 COMING_SOON = os.path.join(os.path.dirname( __file__ ),"..", "images\menu", "coming-soon.png")
 ## Sound constant
 HONK = os.path.join(os.path.dirname( __file__ ),"..", "sounds", "car-horn.mp3")
+MUSIC = os.path.join(os.path.dirname( __file__ ),"..", "sounds", "music.wav")
 ## Constant fo saved score
 SCORE_FILE = os.path.join(os.path.dirname( __file__ ),".", "score", "savedScore")
 
@@ -46,7 +56,7 @@ WIDGET_SIZE = 33
 WIDGET_MARGIN = (0,20)
 BACKGROUND_OPACITY = 0.4
 
-PADDING = 4
+PADDING = 20
 SCORE_X = -285 # Position of Score display
 SCORE_TEXT_Y = -320
 SCORE_COIN_Y = -370

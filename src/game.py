@@ -1,3 +1,10 @@
+"""game
+    
+    Attributes:
+        name: SALFIC
+        date: 03.06.2021
+        version: 0.0.1
+"""
 import pygame
 
 from player import Player
@@ -6,11 +13,35 @@ from loguru import logger
 from constants import *
 
 class Game():
+    """controls the gameloop and creates some user information screens
+    """
     def __init__(self):
+        """Creates a surface and starts pygame clock
+        
+        Test:
+            * self.surface must be of type Surface
+            * the clock must be contained in self.clock
+        """
         self.surface = pygame.display.get_surface()
         self.clock = pygame.time.Clock()
     
     def gameLoop(self, player, menu, level):
+        """controls the gameloop
+        
+        Creates pause button to pause the game, restart, exit or turn the music on or off.
+        Checks for userinput and calls specific funcitons at matching keys.
+        Updates the surface and shows the user the updated view.
+
+        Args:
+            player (Player): contains the player to calls specific functions to move the player on surface
+            menu (Menu): contains the last menu the user was on
+            level (int): to determine which map to load and which backkgorund to plot on the surface
+        
+        Test:
+            * the right map must be loaded based on the given level parameter
+            * the pause button must be clickable
+            * the rec tof the goal must be drawn in gold
+        """
         player.setStart(START_X, START_Y)
         
         if level == 1:
@@ -70,6 +101,7 @@ class Game():
             else:
                 player.straight()
             
+            # cant use sprite group because sprite group doesnt allow return values
             gameOver, goal = player.update(dt, map.tiles, map.goal)
             
             if gameOver == True:
@@ -102,11 +134,35 @@ class Game():
                 logger.info(f"Player restarted the current Level")
     
     def loadMap(self, layout, background):
+        """loads map
+
+        Args:
+            layout (str): contains the path to the csv that is the base of our map
+            background (str): contains the path to the matching png of the level
+
+        Returns:
+            map(Map): Contains the map object
+            background(image): contains the loaded image
+        
+        Test:
+            * the given background must be found and loaded
+            * map must be of type Map
+        """
         map = Map(layout)
         background = pygame.image.load(background)
         return map, background
     
     def showGameEnd(self, exitStatus):
+        """shows game ending screen
+
+        Args:
+            exitStatus (int): decides if a "game over" screen or "you won" screen is shown. Contains the reason of the stopped game.
+        
+        Test:
+            * is the text aligned correctly
+            * the screen should not close if a button was held down while playing and released after this screen shows up
+                Just newly pressed keys should be detected
+        """
         # Konstanten heraus schreiben
         tempSurface = self.createNewSurface()
         if exitStatus == 0:
@@ -144,19 +200,38 @@ class Game():
             self.clock.tick(FPS)
     
     def pause(self, pauseBut, pauseButRect):
+        """creates a pause menu for the player
+
+        Args:
+            pauseBut (image): contains the loaded image to display on the surface
+            pauseButRect (Rect): contains the position of the image
+
+        Returns:
+            restart (Bool): True if the game should be restarted, False otherwise
+            done (Bool): True if the game is exited or restarted, False otherwise
+        
+        Test:
+            * the pause button must be clickable again to unpause
+            * text should not overlap other text
+        """
         tempSurface = self.createNewSurface()
         
         restartText, restartTextRect = self.createTextSurface("Restart",RED, FONT_SIZE_GAME)
+        musicSwitchText, musicSwitchTextRect = self.createTextSurface("Music On/Off", RED, FONT_SIZE_GAME)
         exitText, exitTextRect = self.createTextSurface("Exit",RED, FONT_SIZE_GAME)
         
         restartTextRect.center = (WINDOWSIZE[0]/2, WINDOWSIZE[1]/2)
-        exitTextRect.center = (WINDOWSIZE[0]/2, WINDOWSIZE[1]/2 + FONT_SIZE_GAME + PADDING)
+        musicSwitchTextRect.center = (WINDOWSIZE[0]/2, WINDOWSIZE[1]/2 + FONT_SIZE_GAME + PADDING)
+        exitTextRect.center = (WINDOWSIZE[0]/2, WINDOWSIZE[1]/2 + 2 * FONT_SIZE_GAME + 2* PADDING)
         
         tempSurface.blit(restartText, restartTextRect)
+        tempSurface.blit(musicSwitchText, musicSwitchTextRect)
         tempSurface.blit(exitText, exitTextRect)
+        
         # To be able to unpause the game
         tempSurface.blit(pauseBut, pauseButRect)
-        
+        restart = False
+        done = False
         working = True
         while working:
             for event in pygame.event.get():
@@ -165,17 +240,41 @@ class Game():
                 if event.type == pygame.MOUSEBUTTONUP:
                         x, y = event.pos
                         if restartTextRect.collidepoint(x,y):
-                            return True, True
+                            restart, done = True, True
+                            return restart, done
                         if exitTextRect.collidepoint(x,y):
-                            return True, False
+                            restart, done = True, False
+                            return restart, done
                         if pauseButRect.collidepoint(x,y):
-                            return False,False
+                            restart, done = False
+                            return restart, done
+                        if musicSwitchTextRect.collidepoint(x,y):
+                            musicBusy = pygame.mixer.music.get_busy()
+                            if musicBusy:
+                                pygame.mixer.music.pause()
+                            else:
+                                pygame.mixer.music.unpause()
             
             self.surface.blit(tempSurface, (0,0))
             pygame.display.flip()
             self.clock.tick(FPS)
     
     def createTextSurface(self, text, color, size):
+        """helper function to create a text surface
+
+        Args:
+            text (str): contains the specific text that should be shown
+            color (tupel): RGB tupel for coloring the text
+            size (int): size of the text
+
+        Returns:
+            textSurface (Surface): contains the created surface with the rendet text
+            textRect (Rect): rect of the textSurface
+        
+        Test:
+            * the decleared font must be used
+            * text must be in given color
+        """
         font =  pygame.font.Font(FONT,size)
         textSurface = font.render(text, True, color)
         textRect = textSurface.get_rect()
@@ -183,6 +282,15 @@ class Game():
         return textSurface, textRect
     
     def createNewSurface(self):
+        """helper function to create a pause menu or gameend screen
+
+        Returns:
+            Surface: contains a new surface with white background
+        
+        Test:
+            * the whitebackground must be a little seethrough
+            * the new surface must be the same size as WINDOWSIZE
+        """
         tempSurface = pygame.Surface((WINDOWSIZE))
         whiteBack = pygame.image.load(WHITE_BACK_IMG).convert()
         tempSurface.blit(whiteBack, (0,0))
