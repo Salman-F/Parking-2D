@@ -10,7 +10,7 @@ class Map():
     def __init__(self, mapLayout):
         self.blockSize = BLOCK_SIZE
         self.tiles = []
-        self.spriteSheet = SpriteSheet(SPRITEFILE)
+        self.spriteSheet = SpriteSheet(SPRITE_FILE)
         self.tilesLayout = self.loadLayout(mapLayout)
         # TODO Hier nochmal nach den maßen gucken
         self.mapSurface = pygame.Surface(WINDOWSIZE)

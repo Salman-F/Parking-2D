@@ -117,9 +117,9 @@ class Player(pygame.sprite.Sprite):
         # Updating the mask for upcoming collision detection
         self.mask = pygame.mask.from_surface(self.rotationImage)
         
-        #hit = self.collisionDetection(tiles)
-        #goal = self.checkGoalReach(goal)
-        hit, goal = False, False
+        hit = self.collisionDetection(tiles)
+        goal = self.checkGoalReach(goal)
+
         return hit, goal
     
     def setImage(self, imagePath):

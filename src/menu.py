@@ -15,26 +15,28 @@ class Menu():
         self.score = self.loadScore()
         self.surface = pygame.display.get_surface()
         
-        self.background = pygame_menu.BaseImage(image_path=BACKIMAGE)
+        self.background = pygame_menu.BaseImage(image_path=BACK_IMAGE)
         
-        self.coin = pygame_menu.BaseImage(image_path=COINIMAGE).resize(width=COIN_SIZE, height=COIN_SIZE)
+        self.coin = pygame_menu.BaseImage(image_path=COIN_IMAGE).resize(width=COIN_SIZE, height=COIN_SIZE)
         
-        self.wKey = pygame_menu.BaseImage(image_path=WKEY).resize(width=KEY_SIZE, height=KEY_SIZE)
-        self.sKey = pygame_menu.BaseImage(image_path=SKEY).resize(width=KEY_SIZE, height=KEY_SIZE)
-        self.dKey = pygame_menu.BaseImage(image_path=DKEY).resize(width=KEY_SIZE, height=KEY_SIZE)
-        self.aKey = pygame_menu.BaseImage(image_path=AKEY).resize(width=KEY_SIZE, height=KEY_SIZE)
-        self.hKey = pygame_menu.BaseImage(image_path=HKEY).resize(width=KEY_SIZE, height=KEY_SIZE)
-        self.spaceKey = pygame_menu.BaseImage(image_path=SPACEKEY).resize(width=3*KEY_SIZE, height=KEY_SIZE)
+        self.wKey = pygame_menu.BaseImage(image_path=W_KEY).resize(width=KEY_SIZE, height=KEY_SIZE)
+        self.sKey = pygame_menu.BaseImage(image_path=S_KEY).resize(width=KEY_SIZE, height=KEY_SIZE)
+        self.dKey = pygame_menu.BaseImage(image_path=D_KEY).resize(width=KEY_SIZE, height=KEY_SIZE)
+        self.aKey = pygame_menu.BaseImage(image_path=A_KEY).resize(width=KEY_SIZE, height=KEY_SIZE)
+        self.hKey = pygame_menu.BaseImage(image_path=H_KEY).resize(width=KEY_SIZE, height=KEY_SIZE)
+        self.spaceKey = pygame_menu.BaseImage(image_path=SPACE_KEY).resize(width=3*KEY_SIZE, height=KEY_SIZE)
         
-        self.price50 = pygame_menu.BaseImage(image_path=PRICE50).resize(width=PRICE_W, height=PRICE_H)
-        self.price100 = pygame_menu.BaseImage(image_path=PRICE100).resize(width=PRICE_W, height=PRICE_H)
-        self.price200 = pygame_menu.BaseImage(image_path=PRICE200).resize(width=PRICE_W, height=PRICE_H)
+        self.price50 = pygame_menu.BaseImage(image_path=PRICE_50).resize(width=PRICE_W, height=PRICE_H)
+        self.price100 = pygame_menu.BaseImage(image_path=PRICE_100).resize(width=PRICE_W, height=PRICE_H)
+        self.price200 = pygame_menu.BaseImage(image_path=PRICE_200).resize(width=PRICE_W, height=PRICE_H)
 
-        self.basicCar = pygame_menu.BaseImage(image_path=BASICCARIMAGE).resize(width=MENU_CAR_W, height=MENU_CAR_H).rotate(PLAYER_INIT_ROT)
-        self.f1Car = pygame_menu.BaseImage(image_path=F1IMAGE).resize(width=MENU_CAR_W, height=MENU_CAR_H).rotate(PLAYER_INIT_ROT)
-        self.copCar = pygame_menu.BaseImage(image_path=COPCARIMAGE).resize(width=MENU_CAR_W, height=MENU_CAR_H).rotate(PLAYER_INIT_ROT)
-        self.sportsCar = pygame_menu.BaseImage(image_path=SPORTCARIMAGE).resize(width=MENU_CAR_W, height=MENU_CAR_H).rotate(PLAYER_INIT_ROT)
-
+        self.basicCar = pygame_menu.BaseImage(image_path=BASICCAR_IMAGE).resize(width=MENU_CAR_W, height=MENU_CAR_H).rotate(PLAYER_INIT_ROT)
+        self.f1Car = pygame_menu.BaseImage(image_path=F1_IMAGE).resize(width=MENU_CAR_W, height=MENU_CAR_H).rotate(PLAYER_INIT_ROT)
+        self.copCar = pygame_menu.BaseImage(image_path=COPCAR_IMAGE).resize(width=MENU_CAR_W, height=MENU_CAR_H).rotate(PLAYER_INIT_ROT)
+        self.sportsCar = pygame_menu.BaseImage(image_path=SPORTCAR_IMAGE).resize(width=MENU_CAR_W, height=MENU_CAR_H).rotate(PLAYER_INIT_ROT)
+        
+        self.levelOnePreview = pygame_menu.BaseImage(image_path=LEVELONE_BACKIMAGE).resize(width=PREVIEW_W, height=PREVIEW_H)
+        self.comingSoon = pygame_menu.BaseImage(image_path=COMING_SOON).resize(width=PREVIEW_W, height=PREVIEW_H)
         self.decorator = []
         # Creating own Theme
         self.myTheme = pygame_menu.themes.THEME_DEFAULT.copy()
@@ -73,6 +75,7 @@ class Menu():
 
     def createPlayMenu(self):
         #TODO Make columns rows dynamic with value of Levels
+        # pygame_menu makes screen scrollable if levels dont fit next to eachother
         playMenu = pygame_menu.Menu(width=WINDOWSIZE[0],height=WINDOWSIZE[1], theme=self.myTheme, title=" ", columns=2, rows=3)
         
         decorator = playMenu.get_decorator()
@@ -80,11 +83,11 @@ class Menu():
         self.addScore(decorator)
         
         playMenu.add.label(f"Level One")
-        playMenu.add.image(self.basicCar)
+        playMenu.add.image(self.levelOnePreview)
         playMenu.add.button(f"PLAY", self.game.gameLoop, self.player, self, 1)
         
         playMenu.add.label(f"Level Two")
-        playMenu.add.image(self.sportsCar)
+        playMenu.add.image(self.comingSoon)
         playMenu.add.button(f"PLAY")
         
         return playMenu
@@ -104,32 +107,32 @@ class Menu():
         carMenu.add.label(f"FREE").set_padding((20,0,15,0))
         carMenu.add.image(self.basicCar)
         if(self.score["Cars"]["BasicCar"] == True):
-            carMenu.add.button("Select",self.player.setImage, BASICCARIMAGE)
+            carMenu.add.button("Select",self.player.setImage, BASICCAR_IMAGE)
         
         carMenu.add.image(self.price50)
         carMenu.add.image(self.copCar)
         # Hide "select" button to switch it easily with the buy button
-        copSelectBut = carMenu.add.button("Select",self.player.setImage, COPCARIMAGE).hide()
+        copSelectBut = carMenu.add.button("Select",self.player.setImage, COPCAR_IMAGE).hide()
         if(self.score["Cars"]["CopCar"] == True):
             copSelectBut.show()
         else:
-            carMenu.add.button("Buy",self.purchaseCar,"CopCar", copSelectBut, COPCARIMAGE).add_self_to_kwargs(key="widget")
+            carMenu.add.button("Buy",self.purchaseCar,"CopCar", copSelectBut, COPCAR_IMAGE).add_self_to_kwargs(key="widget")
         
         carMenu.add.image(self.price100)
         carMenu.add.image(self.f1Car)
-        f1SelectBut = carMenu.add.button("Select", self.player.setImage, F1IMAGE).hide()
+        f1SelectBut = carMenu.add.button("Select", self.player.setImage, F1_IMAGE).hide()
         if(self.score["Cars"]["F1Car"] == True):
             f1SelectBut.show()
         else:
-            carMenu.add.button("Buy",self.purchaseCar, "F1Car",f1SelectBut, F1IMAGE).add_self_to_kwargs(key="widget")
+            carMenu.add.button("Buy",self.purchaseCar, "F1Car",f1SelectBut, F1_IMAGE).add_self_to_kwargs(key="widget")
         
         carMenu.add.image(self.price200)
         carMenu.add.image(self.sportsCar)
-        sportsSelectBut = carMenu.add.button("Select",self.player.setImage, SPORTCARIMAGE).hide()
+        sportsSelectBut = carMenu.add.button("Select",self.player.setImage, SPORTCAR_IMAGE).hide()
         if(self.score["Cars"]["SportsCar"] == True):
             sportsSelectBut.show()
         else:
-            carMenu.add.button("Buy",self.purchaseCar, "SportsCar",sportsSelectBut, SPORTCARIMAGE).add_self_to_kwargs(key="widget")
+            carMenu.add.button("Buy",self.purchaseCar, "SportsCar",sportsSelectBut, SPORTCAR_IMAGE).add_self_to_kwargs(key="widget")
         
         logger.info("Car Menu created")
         return carMenu
@@ -163,19 +166,19 @@ class Menu():
         self.background.draw(self.surface)
     
     def purchaseCar(self, car, purchBut, widget, imagePath):
-        if(car == "CopCar" and PRICECOPCAR <= self.score["Score"]):
+        if(car == "CopCar" and PRICE_COPCAR <= self.score["Score"]):
             self.score["Cars"]["CopCar"] = True
-            self.score["Score"] -= PRICECOPCAR
+            self.score["Score"] -= PRICE_COPCAR
             widget.hide()
             purchBut.show()
-        elif(car == "F1Car" and PRICEF1CAR <= self.score["Score"]):
+        elif(car == "F1Car" and PRICE_F1CAR <= self.score["Score"]):
             self.score["Cars"]["F1Car"] = True
-            self.score["Score"] -= PRICEF1CAR
+            self.score["Score"] -= PRICE_F1CAR
             widget.hide()
             purchBut.show()
-        elif(car == "SportsCar" and PRICESPORTSCAR <= self.score["Score"]):
+        elif(car == "SportsCar" and PRICE_SPORTSCAR <= self.score["Score"]):
             self.score["Cars"]["SportsCar"] = True
-            self.score["Score"] -= PRICESPORTSCAR
+            self.score["Score"] -= PRICE_SPORTSCAR
             widget.hide()
             purchBut.show()
         else:
@@ -206,18 +209,18 @@ class Menu():
     
     def loadScore(self):
         try:
-            with open(SCOREFILE, "rb") as f:
+            with open(SCORE_FILE, "rb") as f:
                 savedScore = pickle.load(f)
         except:
             savedScore = {"Cars":{"BasicCar":True, "CopCar":False, "F1Car":False, "SportsCar":False}, "Score":0}
-            logger.info(f"Score File not found >> Default values used: {self.score['Score']} , {self.score['Cars']}")
+            logger.info(f"Score File not found >> Default values used: {savedScore['Score']} , {savedScore['Cars']}")
         
         return savedScore    
     
     def saveScore(self):
         try:
-            with open(SCOREFILE, "wb") as f:
+            with open(SCORE_FILE, "wb") as f:
                 pickle.dump(self.score, f)
             logger.info(f"Saved Information : {self.score['Score']} , {self.score['Cars']}")
         except:
-            logger.info(f"Savong new score failed >> Check Path {SCOREFILE}")
+            logger.info(f"Savong new score failed >> Check Path {SCORE_FILE}")

@@ -11,15 +11,15 @@ class Game():
         self.clock = pygame.time.Clock()
     
     def gameLoop(self, player, menu, level):
-        player.setStart(STARTX, STARTY)
+        player.setStart(START_X, START_Y)
         
         if level == 1:
-            map, background = self.loadMap(LVL1LAYOUT, LEVELONEBACKIMAGE)
-            passedLevel = LEVEL1REWARD
+            map, background = self.loadMap(LVL1_LAYOUT, LEVELONE_BACKIMAGE)
+            passedLevel = LEVEL1_REWARD
             logger.info(f"Player started playing Level 1")
         elif level == 2:
-            map, background = self.loadMap(LVL2LAYOUT, LEVELTWOBACKIMAGE)
-            passedLevel = LEVEL2REWARD
+            map, background = self.loadMap(LVL2_LAYOUT, LEVELTWO_BACKIMAGE)
+            passedLevel = LEVEL2_REWARD
             logger.info(f"Player started playing Level 2")
         else:
             logger.info(f"Level not found")
@@ -31,11 +31,11 @@ class Game():
         done = False
         restart = False
         
-        pauseBut = pygame.image.load(PAUSEBUTTON).convert_alpha()
-        pauseBut = pygame.transform.scale(pauseBut, (PAUSEBUTTONW,PAUSEBUTTONH))
+        pauseBut = pygame.image.load(PAUSE_BUTTON).convert_alpha()
+        pauseBut = pygame.transform.scale(pauseBut, (PAUSE_BUTTON_W,PAUSE_BUTTON_H))
         pauseButRect = pauseBut.get_rect()
-        pauseButRect.x = PAUSEBUTTONX
-        pauseButRect.y = PAUSEBUTTONY
+        pauseButRect.x = PAUSE_BUTTON_X
+        pauseButRect.y = PAUSE_BUTTON_Y
         
         while not done:
             dt = self.clock.get_time() / 1000
@@ -96,7 +96,7 @@ class Game():
             self.clock.tick_busy_loop(FPS)
         
             if restart == True:
-                player.setStart(STARTX, STARTY)
+                player.setStart(START_X, START_Y)
                 done = False
                 restart = False
                 logger.info(f"Player restarted the current Level")
@@ -111,17 +111,17 @@ class Game():
         tempSurface = self.createNewSurface()
         if exitStatus == 0:
             # Creating Game Over Text and aligning
-            centeredText, centeredTextRect = self.createTextSurface("GAME OVER",RED, FONTSIZEGAME)
+            centeredText, centeredTextRect = self.createTextSurface("GAME OVER",RED, FONT_SIZE_GAME)
             centeredTextRect.center = (WINDOWSIZE[0]/2, WINDOWSIZE[1]/2)
             color = RED
         elif exitStatus == 1:
             # Creating You won Text and aligning
-            centeredText, centeredTextRect = self.createTextSurface("YOU WON",GOLD, FONTSIZEGAME)
+            centeredText, centeredTextRect = self.createTextSurface("YOU WON",GOLD, FONT_SIZE_GAME)
             centeredTextRect.center = (WINDOWSIZE[0]/2, WINDOWSIZE[1]/2)
             color = GOLD
         # Creating Press to continue text and aligning
-        pressToCon, pressToConRect= self.createTextSurface("Press a key to continue", color, FONTSIZEGAME-10)
-        pressToConRect.center = (WINDOWSIZE[0]/2, WINDOWSIZE[1]/2 + FONTSIZEGAME)
+        pressToCon, pressToConRect= self.createTextSurface("Press a key to continue", color, FONT_SIZE_GAME-10)
+        pressToConRect.center = (WINDOWSIZE[0]/2, WINDOWSIZE[1]/2 + FONT_SIZE_GAME)
         
         tempSurface.blit(centeredText, centeredTextRect)
         tempSurface.blit(pressToCon, pressToConRect)
@@ -146,11 +146,11 @@ class Game():
     def pause(self, pauseBut, pauseButRect):
         tempSurface = self.createNewSurface()
         
-        restartText, restartTextRect = self.createTextSurface("Restart",RED, FONTSIZEGAME)
-        exitText, exitTextRect = self.createTextSurface("Exit",RED, FONTSIZEGAME)
+        restartText, restartTextRect = self.createTextSurface("Restart",RED, FONT_SIZE_GAME)
+        exitText, exitTextRect = self.createTextSurface("Exit",RED, FONT_SIZE_GAME)
         
         restartTextRect.center = (WINDOWSIZE[0]/2, WINDOWSIZE[1]/2)
-        exitTextRect.center = (WINDOWSIZE[0]/2, WINDOWSIZE[1]/2 + FONTSIZEGAME + PADDING)
+        exitTextRect.center = (WINDOWSIZE[0]/2, WINDOWSIZE[1]/2 + FONT_SIZE_GAME + PADDING)
         
         tempSurface.blit(restartText, restartTextRect)
         tempSurface.blit(exitText, exitTextRect)
@@ -184,7 +184,7 @@ class Game():
     
     def createNewSurface(self):
         tempSurface = pygame.Surface((WINDOWSIZE))
-        whiteBack = pygame.image.load(WHITEBACKIMG).convert()
+        whiteBack = pygame.image.load(WHITE_BACK_IMG).convert()
         tempSurface.blit(whiteBack, (0,0))
         tempSurface.set_alpha(2, pygame.RLEACCEL)
         return tempSurface
