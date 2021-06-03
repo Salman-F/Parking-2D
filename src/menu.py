@@ -1,3 +1,13 @@
+"""menu
+
+Displays the menu and handels input from user.
+
+    Attributes:
+        name: SALFIC
+        date: 03.06.2021
+        version: 0.0.1
+"""
+
 import pygame 
 import pygame_menu
 import pickle
@@ -8,8 +18,20 @@ from constants import *
 from game import Game
 
 class Menu():
+    """Controls the flow of the program based on the user.
+    """
     
     def __init__(self, game, player):
+        """Loads images, creates theme and more for main and submenus
+
+        Args:
+            game (Game): game object to call main gameloop
+            player (Player): player object to change images
+            
+        Test:
+            * The submenus must be initialized at the end
+            * the images must be resized as implemented
+        """
         self.game = game
         self.player = player
         self.score = self.loadScore()
@@ -46,17 +68,24 @@ class Menu():
                                 title_font_color = BLACK,
                                 widget_font_size = WIDGET_SIZE,
                                 widget_font = pygame_menu.font.FONT_8BIT,
-                                widget_margin = WIDGET_MARGIN,
+                                widget_margin = WIDGET_MARGIN
                             )
         self.myTheme.set_background_color_opacity(BACKGROUND_OPACITY) #CONST HERE TODO
         
         self.carMenu = self.createCarMenu()
+        self.settingsMenu = self.createSettingsMenu()
         self.controlsMenu = self.createControlsMenu()
         self.playMenu = self.createPlayMenu()
         
         logger.info("Menus initialized")
-        
+    
     def mainMenu(self):
+        """Controls the main menu and shows submenus
+        
+        Test:
+            * Menu must be the same size as WINDOWSIZE
+            * buttons must be drawn on the main menu and must be clickable
+        """
         
         mainMenu = pygame_menu.Menu(width=WINDOWSIZE[0],height=WINDOWSIZE[1], theme=self.myTheme, title=" ", onclose=pygame_menu.events.EXIT)
         
@@ -67,6 +96,7 @@ class Menu():
 
         mainMenu.add.button("Play",self.playMenu)
         mainMenu.add.button("Choose Car", self.carMenu)
+        mainMenu.add.button("Settings", self.settingsMenu)
         mainMenu.add.button("Controls", self.controlsMenu)
         mainMenu.add.button("Exit", pygame_menu.events.EXIT)
         logger.info("Main Menu Buttons created")
@@ -74,7 +104,18 @@ class Menu():
         mainMenu.mainloop(self.surface, self.drawBackground, fps_limit=FPS)
 
     def createPlayMenu(self):
-        #TODO Make columns rows dynamic with value of Levels
+        """creates the menu to select which level is going to be played
+
+        Note:
+            TODO Make columns rows dynamic with value of Levels
+
+        Returns:
+            Menu: contains the Play menu
+        
+        Test:
+            * the score must be set with the help of the decorator
+            * the size of this submenu must match WINDOWSIZE
+        """
         # pygame_menu makes screen scrollable if levels dont fit next to eachother
         playMenu = pygame_menu.Menu(width=WINDOWSIZE[0],height=WINDOWSIZE[1], theme=self.myTheme, title=" ", columns=2, rows=3)
         
@@ -93,8 +134,18 @@ class Menu():
         return playMenu
     
     def createCarMenu(self):
-        #TODO column number generic with skin values
-        #
+        """creates the menu to select and buy other cars
+
+        Note:
+            TODO column number generic with skin values
+        
+        Returns:
+            Menu: contains the car menu
+        
+        Test:
+            * After buying a car the select button must be shown
+            * all labels, images and buttons must be set
+        """
         myTheme = self.myTheme.copy()
         myTheme.widget_font_size = 22
         carMenu = pygame_menu.Menu(width=WINDOWSIZE[0],height=WINDOWSIZE[1], theme=myTheme, title=" ", columns=4, rows=3)
@@ -137,7 +188,60 @@ class Menu():
         logger.info("Car Menu created")
         return carMenu
     
+    def createSettingsMenu(self):
+        """creates the settings menu
+        
+        Controls the music.
+        
+        Returns:
+            Menu: contains the settings menu
+        
+        Test:
+            * the pygame.mixer must stop playing if the value is off
+            * the decorator for this menu must be in self.decorator list
+        """
+        settingsMenu = pygame_menu.Menu(width=WINDOWSIZE[0],height=WINDOWSIZE[1], theme=self.myTheme, title=" ", columns=2, rows=1)
+        
+        decorator = settingsMenu.get_decorator()
+        self.decorator.append(decorator)
+        self.addScore(decorator)
+        
+        settingsMenu.add.label("Music")
+        settingsMenu.add.toggle_switch(title="",infinite=True, state_text=("On", "Off"), state_values=(True, False) ,onchange=self.checkMusic)
+        
+        logger.info("settings menu created")
+        return settingsMenu
+    
+    def checkMusic(self, state):
+        """Checks the value of the switch and stops or resumes game music
+
+        Args:
+            state (Bool): True if the music should play, False otherwise
+        
+        Test:
+            * music must stop if state == True
+            * if the music is stopped it should not start if state == True
+        """
+        if state:
+            pygame.mixer.music.unpause()
+        else:
+            pygame.mixer.music.pause()
+    
     def createControlsMenu(self):
+        """creates the controls menu
+        
+        This menu is to look up the game controls
+
+        Returns:
+            Menu: contains the controls menu
+        
+        Test:
+            * All Labels must be aligned left
+            * the images must be in the same row as there label
+        
+        Examples:
+            Forward must be in the same row as the image of self.wKey
+        """
         
         controlsMenu = pygame_menu.Menu(width=WINDOWSIZE[0],height=WINDOWSIZE[1], theme=self.myTheme, title=" ", columns=2, rows=6)
         
@@ -163,9 +267,32 @@ class Menu():
         return controlsMenu
     
     def drawBackground(self):
+        """Draws backround image on the surface
+        
+        Test:
+            * the background must be drawn on self.surface
+            * background should not change after execution
+        """
         self.background.draw(self.surface)
     
     def purchaseCar(self, car, purchBut, widget, imagePath):
+        """logic for buying a new car
+
+        Checks if the user has enough coins to buy a new car.
+        If he can afford a new car his score is decreased and the select button is shown.
+        Therfore the buy button is hidden.
+        The newly bought car is automatically selected.
+        
+        Args:
+            car (str): contains the name of the desired car
+            purchBut (widget): contains the slect button that is still hidden
+            widget (widget): contains the buy button that is shown 
+            imagePath (str): path to the image of the desired car
+        
+        Test:
+            * users score count cant get negative
+            * if a car is purchased the buy button must be hiden and the select button needs to show on the screen
+        """
         if(car == "CopCar" and PRICE_COPCAR <= self.score["Score"]):
             self.score["Cars"]["CopCar"] = True
             self.score["Score"] -= PRICE_COPCAR
@@ -186,28 +313,65 @@ class Menu():
                 logger.info("Something went wrong purchasing a car >> Price to high")
             else:
                 logger.debug("Something went wrong purchasing a car >> car not found")
+            return
         
         self.player.setImage(imagePath)
         self.updateScore()
         self.saveScore()
     
     def updateScore(self):
+        """updates the score for every submenu with the help of the decorator list
+        
+        Test:
+            * every decorator in the list needs to be called
+            * the new text should not be on top of the old text
+        """
         for dec in self.decorator:
             dec.remove_all()
             self.addScore(dec)
     
     def addScore(self, decorator):
-        #POS of text and image in const files
+        """draws the score and a coin on a given menu with the help of its decorator
+
+        Args:
+            decorator (decorator): decorator specific for a menu
+        
+        Test:
+            * the text and image must be on the same hight
+            * the changes should just be shown on the related menu 
+        """
         decorator.add_text(y=SCORE_X, x=SCORE_TEXT_Y, text=str(self.score["Score"]), font=pygame_menu.font.FONT_8BIT, size=WIDGET_SIZE, color=BLACK)
         decorator.add_baseimage(y=SCORE_X, x=SCORE_COIN_Y, image=self.coin)
         logger.info("Updated Score")
-    # Where did i use this
+
     def setScore(self, value):
+        """setter for score
+        
+        After completing a level successfully this function adds the reward to the score.
+
+        Args:
+            value (int): reward (coins) for finishing a level
+        
+        Test:
+            * the score must increase
+            * all menus must contain the new score (because updateScore is calles at the end)
+        """
         self.score["Score"] += value 
         self.updateScore()
         self.saveScore()
     
     def loadScore(self):
+        """loads the saved score and the purchased cars
+        
+        If no file is found a default value is taken.
+
+        Returns:
+            Dict: Contains the saved score and cars to enable / disable buttons
+        
+        Test:
+            * if the file is found
+            * if no file is found a default value must be taken
+        """
         try:
             with open(SCORE_FILE, "rb") as f:
                 savedScore = pickle.load(f)
@@ -218,9 +382,15 @@ class Menu():
         return savedScore    
     
     def saveScore(self):
+        """saves the score into the file if the score changes
+
+        Test:
+            * new value must be in given file after completion
+            * logging file must contain information if file is not found
+        """
         try:
             with open(SCORE_FILE, "wb") as f:
                 pickle.dump(self.score, f)
             logger.info(f"Saved Information : {self.score['Score']} , {self.score['Cars']}")
         except:
-            logger.info(f"Savong new score failed >> Check Path {SCORE_FILE}")
+            logger.info(f"Saving new score failed >> Check Path {SCORE_FILE}")
