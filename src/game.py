@@ -246,7 +246,7 @@ class Game():
                             restart, done = True, False
                             return restart, done
                         if pauseButRect.collidepoint(x,y):
-                            restart, done = False
+                            restart, done = False, False
                             return restart, done
                         if musicSwitchTextRect.collidepoint(x,y):
                             musicBusy = pygame.mixer.music.get_busy()

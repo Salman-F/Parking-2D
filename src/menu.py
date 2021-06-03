@@ -96,8 +96,8 @@ class Menu():
 
         mainMenu.add.button("Play",self.playMenu)
         mainMenu.add.button("Choose Car", self.carMenu)
-        mainMenu.add.button("Settings", self.settingsMenu)
         mainMenu.add.button("Controls", self.controlsMenu)
+        mainMenu.add.button("Settings", self.settingsMenu)
         mainMenu.add.button("Exit", pygame_menu.events.EXIT)
         logger.info("Main Menu Buttons created")
         
@@ -200,7 +200,7 @@ class Menu():
             * the pygame.mixer must stop playing if the value is off
             * the decorator for this menu must be in self.decorator list
         """
-        settingsMenu = pygame_menu.Menu(width=WINDOWSIZE[0],height=WINDOWSIZE[1], theme=self.myTheme, title=" ", columns=2, rows=1)
+        settingsMenu = pygame_menu.Menu(width=WINDOWSIZE[0],height=WINDOWSIZE[1], theme=self.myTheme, title=" ", rows= 1, columns= 2)
         
         decorator = settingsMenu.get_decorator()
         self.decorator.append(decorator)
@@ -208,7 +208,6 @@ class Menu():
         
         settingsMenu.add.label("Music")
         settingsMenu.add.toggle_switch(title="",infinite=True, state_text=("On", "Off"), state_values=(True, False) ,onchange=self.checkMusic)
-        
         logger.info("settings menu created")
         return settingsMenu
     
@@ -226,6 +225,7 @@ class Menu():
             pygame.mixer.music.unpause()
         else:
             pygame.mixer.music.pause()
+    
     
     def createControlsMenu(self):
         """creates the controls menu
@@ -275,7 +275,7 @@ class Menu():
         """
         self.background.draw(self.surface)
     
-    def purchaseCar(self, car, purchBut, widget, imagePath):
+    def purchaseCar(self, car, purchBut, imagePath, widget):
         """logic for buying a new car
 
         Checks if the user has enough coins to buy a new car.
@@ -383,6 +383,8 @@ class Menu():
     
     def saveScore(self):
         """saves the score into the file if the score changes
+        
+        If the File is not found a new file is created to save the score
 
         Test:
             * new value must be in given file after completion
@@ -393,4 +395,10 @@ class Menu():
                 pickle.dump(self.score, f)
             logger.info(f"Saved Information : {self.score['Score']} , {self.score['Cars']}")
         except:
-            logger.info(f"Saving new score failed >> Check Path {SCORE_FILE}")
+            with open(SCORE_FILE, "w+") as f:
+                pass
+            
+            with open(SCORE_FILE, "wb") as f:
+                pickle.dump(self.score, f)
+            
+            logger.info(f"Saving new score failed, created new File>> Check Path {SCORE_FILE}")

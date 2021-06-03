@@ -243,12 +243,12 @@ class Player(pygame.sprite.Sprite):
             * logging information must be in log file
             * true must be returned if player is in the goal
         """
-        goal = False
+        reachedGoal = False
         if pygame.Rect.contains(goal.rect, self.rect):
             logger.info(f"Player reached the goal")
-            goal = True
+            reachedGoal = True
             
-        return goal
+        return reachedGoal
     
     def update(self, timeDif, tiles, goal):
         """Updates the parameters of the player
