@@ -7,7 +7,9 @@
 Parking 2D is a `university project` that allows
 ` the work with pygame` to ` create a game in python`.
 
-<img src="https://github.com/Salman-F/Parking-2D/blob/main/images/readme/teaser.gif" width="500" height="400">
+<p align="center">
+  <img src="https://github.com/Salman-F/Parking-2D/blob/main/images/readme/teaser.gif" width="500" height="400">
+</p>
 
 This project demonstrates how to work with pygame and create a game including
   - a menu created with pygame-menu
@@ -53,9 +55,9 @@ C:\src>python main.py
 
 * Your starting screen should look something like that
 
-| Starting screen  |
-| :-------------: |
-|<img src="https://github.com/Salman-F/Parking-2D/blob/main/images/readme/startScreen.png" width="500" height="400">|
+<p align="center">
+  <img src="https://github.com/Salman-F/Parking-2D/blob/main/images/readme/startScreen.png" width="500" height="400">
+</p>
 
 ## How to create a new map
 * Maps are created with tiles
@@ -70,14 +72,18 @@ C:\src>python main.py
 * How Big the goal is going to be should be saved in a variable with the numbers of tiles in x and y direction (default is x:6, y:12)
 * Your created map with JUST the blocks from [images\maps\customSpriteSheet.png](https://github.com/Salman-F/Parking-2D/blob/main/images/maps/customSpriteSheet.png) should then look something like this.
 
-<img src="https://github.com/Salman-F/Parking-2D/blob/main/images/readme/createMapLayoutpng.png" width="500" height="400">
+<p align="center">
+  <img src="https://github.com/Salman-F/Parking-2D/blob/main/images/readme/createMapLayoutpng.png" width="500" height="400">
+</p>
 
 * Export this file as csv and the obstacles are done. Now you can start designing your layout
 * Copy your level and add assets, pictures or text on your level
 * Export your copy as an image and the surface the user is going to see is done.
 * Your map is now ready to be included into the game and could look something like this.
-
-<img src="https://github.com/Salman-F/Parking-2D/blob/main/images/readme/createMapDesign.png" width="500" height="400">
+* 
+<p align="center">
+  <img src="https://github.com/Salman-F/Parking-2D/blob/main/images/readme/createMapDesign.png" width="500" height="400">
+</p>
 
 ## Thanks to all artist
 
