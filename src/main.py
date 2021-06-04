@@ -8,7 +8,6 @@
 import os, sys
 os.environ["PYGAME_HIDE_SUPPORT_PROMPT"] = "hide"
 import pygame
-import pickle
 
 from loguru import logger
 from constants import *
@@ -34,7 +33,8 @@ def main():
     
     # To remove the default stderr output
     logger.remove()
-    logger.add(LOG_FILE , level="INFO", mode="w")
+    # Overwrite the last log file (because if you didnt immediately look at it the information is not important)
+    logger.add(LOG_FILE , level="DEBUG", mode="w")
 
     player = Player(BASICCAR_IMAGE, START_X, START_Y)
     

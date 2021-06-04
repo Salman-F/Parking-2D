@@ -216,14 +216,17 @@ class Game():
         """
         tempSurface = self.createNewSurface()
         
+        unpauseText, unpauseRect = self.createTextSurface("Unpause", RED, FONT_SIZE_GAME)
         restartText, restartTextRect = self.createTextSurface("Restart",RED, FONT_SIZE_GAME)
         musicSwitchText, musicSwitchTextRect = self.createTextSurface("Music On/Off", RED, FONT_SIZE_GAME)
         exitText, exitTextRect = self.createTextSurface("Exit",RED, FONT_SIZE_GAME)
         
+        unpauseRect.center = (WINDOWSIZE[0]/2, WINDOWSIZE[1]/2 - FONT_SIZE_GAME - PADDING)
         restartTextRect.center = (WINDOWSIZE[0]/2, WINDOWSIZE[1]/2)
         musicSwitchTextRect.center = (WINDOWSIZE[0]/2, WINDOWSIZE[1]/2 + FONT_SIZE_GAME + PADDING)
         exitTextRect.center = (WINDOWSIZE[0]/2, WINDOWSIZE[1]/2 + 2 * FONT_SIZE_GAME + 2* PADDING)
         
+        tempSurface.blit(unpauseText, unpauseRect)
         tempSurface.blit(restartText, restartTextRect)
         tempSurface.blit(musicSwitchText, musicSwitchTextRect)
         tempSurface.blit(exitText, exitTextRect)
@@ -245,8 +248,8 @@ class Game():
                         if exitTextRect.collidepoint(x,y):
                             restart, done = True, False
                             return restart, done
-                        if pauseButRect.collidepoint(x,y):
-                            restart, done = False
+                        if pauseButRect.collidepoint(x,y) or unpauseRect.collidepoint(x,y):
+                            restart, done = False, False
                             return restart, done
                         if musicSwitchTextRect.collidepoint(x,y):
                             musicBusy = pygame.mixer.music.get_busy()

@@ -19,6 +19,7 @@ from game import Game
 
 class Menu():
     """Controls the flow of the program based on the user.
+        Handels all menus and redirects to functions at userinput.
     """
     
     def __init__(self, game, player):
@@ -96,8 +97,8 @@ class Menu():
 
         mainMenu.add.button("Play",self.playMenu)
         mainMenu.add.button("Choose Car", self.carMenu)
-        mainMenu.add.button("Settings", self.settingsMenu)
         mainMenu.add.button("Controls", self.controlsMenu)
+        mainMenu.add.button("Settings", self.settingsMenu)
         mainMenu.add.button("Exit", pygame_menu.events.EXIT)
         logger.info("Main Menu Buttons created")
         
@@ -131,6 +132,7 @@ class Menu():
         playMenu.add.image(self.comingSoon)
         playMenu.add.button(f"PLAY")
         
+        logger.info(f"Play menu created")
         return playMenu
     
     def createCarMenu(self):
@@ -200,7 +202,7 @@ class Menu():
             * the pygame.mixer must stop playing if the value is off
             * the decorator for this menu must be in self.decorator list
         """
-        settingsMenu = pygame_menu.Menu(width=WINDOWSIZE[0],height=WINDOWSIZE[1], theme=self.myTheme, title=" ", columns=2, rows=1)
+        settingsMenu = pygame_menu.Menu(width=WINDOWSIZE[0],height=WINDOWSIZE[1], theme=self.myTheme, title=" ", rows= 1, columns= 2)
         
         decorator = settingsMenu.get_decorator()
         self.decorator.append(decorator)
@@ -226,6 +228,7 @@ class Menu():
             pygame.mixer.music.unpause()
         else:
             pygame.mixer.music.pause()
+    
     
     def createControlsMenu(self):
         """creates the controls menu
@@ -275,7 +278,7 @@ class Menu():
         """
         self.background.draw(self.surface)
     
-    def purchaseCar(self, car, purchBut, widget, imagePath):
+    def purchaseCar(self, car, purchBut, imagePath, widget):
         """logic for buying a new car
 
         Checks if the user has enough coins to buy a new car.
@@ -342,7 +345,7 @@ class Menu():
         """
         decorator.add_text(y=SCORE_X, x=SCORE_TEXT_Y, text=str(self.score["Score"]), font=pygame_menu.font.FONT_8BIT, size=WIDGET_SIZE, color=BLACK)
         decorator.add_baseimage(y=SCORE_X, x=SCORE_COIN_Y, image=self.coin)
-        logger.info("Updated Score")
+        logger.info(f"Updated Score to {self.score['Score']}")
 
     def setScore(self, value):
         """setter for score
@@ -377,12 +380,14 @@ class Menu():
                 savedScore = pickle.load(f)
         except:
             savedScore = {"Cars":{"BasicCar":True, "CopCar":False, "F1Car":False, "SportsCar":False}, "Score":0}
-            logger.info(f"Score File not found >> Default values used: {savedScore['Score']} , {savedScore['Cars']}")
+            logger.debug(f"Score File not found >> Default values used: {savedScore['Score']} , {savedScore['Cars']}")
         
         return savedScore    
     
     def saveScore(self):
         """saves the score into the file if the score changes
+        
+        If the File is not found a new file is created to save the score
 
         Test:
             * new value must be in given file after completion
@@ -393,4 +398,10 @@ class Menu():
                 pickle.dump(self.score, f)
             logger.info(f"Saved Information : {self.score['Score']} , {self.score['Cars']}")
         except:
-            logger.info(f"Saving new score failed >> Check Path {SCORE_FILE}")
+            # Open in w+ mode to create automatically a new file
+            with open(SCORE_FILE, "w+") as f:
+                pass
+            
+            with open(SCORE_FILE, "wb") as f:
+                pickle.dump(self.score, f)
+            logger.debug(f"Saving new score failed, created a new File>> Check Path {SCORE_FILE}")
