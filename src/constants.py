@@ -25,7 +25,7 @@ PRICE_50 = os.path.join(os.path.dirname( __file__ ),"..", "images\menu", "Price-
 PRICE_100 = os.path.join(os.path.dirname( __file__ ),"..", "images\menu", "Price-100-trans.png")
 PRICE_200 = os.path.join(os.path.dirname( __file__ ),"..", "images\menu", "Price-200-trans.png")
 
-FONT = os.path.join(os.path.dirname( __file__ ),"..", "fonts\karmatic-arcade", "ka1.ttf")
+FONT = os.path.join(os.path.dirname( __file__ ),"..", "fonts", "retroFont.ttf")
 PAUSE_BUTTON = os.path.join(os.path.dirname( __file__ ),"..", "images\menu", "pauseBut.png")
 
 W_KEY = os.path.join(os.path.dirname( __file__ ),"..", "images\menu", "W-key.png")
