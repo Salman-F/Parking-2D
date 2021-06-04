@@ -53,7 +53,7 @@ C:\src>python main.py
 
 | Starting screen  |
 | :-------------: |
-| ![userChoice](https://github.com/Salman-F/Analyze-and-predict-corona-data-with-redis/blob/main/images/analyzeCoronaData.png) |
+| ![userChoice](https://github.com/Salman-F/Parking-2D/blob/main/images/readme/startScreen.png) |
 
 ## How to create a new map
 
