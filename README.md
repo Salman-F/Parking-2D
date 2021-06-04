@@ -59,7 +59,7 @@ C:\src>python main.py
 
 ## How to create a new map
 
-## Artist thanks
+## Thanks to all artist
 
 ## Contributing to Parking 2D
 
