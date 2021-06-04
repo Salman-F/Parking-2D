@@ -36,9 +36,11 @@ H_KEY = os.path.join(os.path.dirname( __file__ ),"..", "images\menu", "H-key.png
 SPACE_KEY = os.path.join(os.path.dirname( __file__ ),"..", "images\menu", "space-key.png")
 
 COMING_SOON = os.path.join(os.path.dirname( __file__ ),"..", "images\menu", "coming-soon.png")
+
 ## Sound constant
 HONK = os.path.join(os.path.dirname( __file__ ),"..", "sounds", "car-horn.mp3")
 MUSIC = os.path.join(os.path.dirname( __file__ ),"..", "sounds", "music.wav")
+
 ## Constant fo saved score
 SCORE_FILE = os.path.join(os.path.dirname( __file__ ),".", "score", "savedScore")
 

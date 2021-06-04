@@ -1,6 +1,8 @@
 """map
     
-    Creates the map.
+    Creates the map based on the given layout.
+    Analyzes layout and creates Tile objects that will be placed on the map surface.
+    This map surface will then be placed on the game surface.
     
     Attributes:
         name: SALFIC
@@ -69,7 +71,7 @@ class Map():
             surface (Surface): surface on which the map will be drawen
         
         Test:
-            * is the topleft corner of the mapSurface placed on (0,0) on the given surface
+            * the topleft corner of the mapSurface must be placed at (0,0) on the given surface
         """
         surface.blit(self.mapSurface, (0,0))
     
@@ -96,6 +98,7 @@ class Map():
             * the goal must be bigger than a ordinary tile
         """
         tiles = []
+        # To calculate the exact position the tile must be in
         x = 0
         y = 0        
         for row in self.tilesLayout:

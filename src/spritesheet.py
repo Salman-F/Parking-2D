@@ -1,5 +1,7 @@
 """spritesheet
     
+    Helps parsing sprites and returning the image of a Tile.
+    
     Attributes:
         name: SALFIC
         date: 03.06.2021
@@ -16,12 +18,15 @@ class SpriteSheet():
     def __init__(self, file):
         """loads the spritesheet
 
+        Note:
+            Inspired by: https://www.youtube.com/watch?v=ePiMYe7JpJo
+        
         Args:
             file (str): path to the given file
         
         Test:
             * the file ending must be changed to json
-            * the json must be read
+            * the json must be readabel 
         """
         self.file = file
         self.spriteSheet = pygame.image.load(file).convert()
