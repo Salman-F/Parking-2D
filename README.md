@@ -95,6 +95,8 @@ C:\src>python main.py
 1. A csv that includes the layout of your map (created with just the tiles provided in [images\maps\customSpriteSheet.png](https://github.com/Salman-F/Parking-2D/blob/main/images/maps/customSpriteSheet.png))
 2. An image that shows the design of your map
 
+You can also start with making a design and afterwards filling it with the tiles provided in [images\maps\customSpriteSheet.png](https://github.com/Salman-F/Parking-2D/blob/main/images/maps/customSpriteSheet.png))
+
 ## Thanks to all artist
 
 This project is just for personal and educational use. It is not intendet to earn any money with this project.
