@@ -91,6 +91,10 @@ C:\src>python main.py
   <img src="https://github.com/Salman-F/Parking-2D/blob/main/images/readme/createMapDesign.png" width="500" height="400">
 </p>
 
+* Files that you need at the end
+1. A csv that includes the layout of your map (created with just the tiles provided in [images\maps\customSpriteSheet.png](https://github.com/Salman-F/Parking-2D/blob/main/images/maps/customSpriteSheet.png))
+2. An image that shows the design of your map
+
 ## Thanks to all artist
 
 ## Contributing to Parking 2D
