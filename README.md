@@ -7,6 +7,8 @@
 Parking 2D is a `university project` that allows
 ` the work with pygame` to ` create a game in python`.
 
+<img src="https://github.com/Salman-F/Parking-2D/blob/main/images/readme/teaser.gif" width="500" height="400">
+
 This project demonstrates how to work with pygame and create a game including
   - a menu created with pygame-menu
   - collision detection
