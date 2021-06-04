@@ -64,11 +64,17 @@ C:\src>python main.py
 * For creating a map a level editor is highly recommended
 * A free level editor is [Tiled](https://www.mapeditor.org/)
 * Create a new map
-* Change the "tile size" to 16x16 and the "map size" to Width=50tiles and Height=38tiles
+
+| :zap:        Change the "tile size" to 16x16 and the "map size" to Width=50tiles and Height=38tiles   |
+|-----------------------------------------|
+
 * Open a new tileset from [images\maps\customSpriteSheet.png](https://github.com/Salman-F/Parking-2D/blob/main/images/maps/customSpriteSheet.png) in your level editor
 * Create a map with the given 16x16 tiles
 * Please note that all black, green and grey blocks are going to be obstacles in the game
-* IMPORTANT: your map must include one brown tile that represents the top left corner of your goal
+
+| :exclamation:         Your map must include one brown tile that represents the top left corner of your goal   |
+|-----------------------------------------|
+
 * How Big the goal is going to be should be saved in a variable with the numbers of tiles in x and y direction (default is x:6, y:12)
 * Your created map with JUST the blocks from [images\maps\customSpriteSheet.png](https://github.com/Salman-F/Parking-2D/blob/main/images/maps/customSpriteSheet.png) should then look something like this.
 
@@ -80,7 +86,7 @@ C:\src>python main.py
 * Copy your level and add assets, pictures or text on your level
 * Export your copy as an image and the surface the user is going to see is done.
 * Your map is now ready to be included into the game and could look something like this.
-* 
+
 <p align="center">
   <img src="https://github.com/Salman-F/Parking-2D/blob/main/images/readme/createMapDesign.png" width="500" height="400">
 </p>
