@@ -101,14 +101,14 @@ class Map():
         for row in self.tilesLayout:
             x = 0
             for tile in row:
-                logger.info(tile)
                 if tile == str(1):
                     self.goal = Tile("brown.png",self.spriteSheet, x*self.blockSize, y*self.blockSize)
                     logger.info(f"Goal size is {self.goal.rect}")
                 elif tile == str(0) or tile == str(2) or tile == str(3):
                     tiles.append(Tile("black.png", self.spriteSheet, x*self.blockSize, y*self.blockSize))
                 else:
-                    logger.info(f"Tile number not found, cant create a tile!!")
+                    if tile != str(-1):
+                        logger.debug(f"Tile number {tile} not found, cant create a tile!! >> most likely dirty tile")
                 x += 1
             y += 1
         return tiles
