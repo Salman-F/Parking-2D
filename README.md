@@ -53,7 +53,7 @@ C:\src>python main.py
 
 | Starting screen  |
 | :-------------: |
-| ![userChoice](https://github.com/Salman-F/Parking-2D/blob/main/images/readme/startScreen.png) |
+|<img src="https://github.com/Salman-F/Parking-2D/blob/main/images/readme/startScreen.png" width="500" height="400">|
 
 ## How to create a new map
 
