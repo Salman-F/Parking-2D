@@ -1,5 +1,7 @@
 """main
 
+    Main function that creates the main Objects and starts the main loop.  
+
     Attributes:
         name: SALFIC
         date: 03.06.2021
@@ -24,6 +26,7 @@ def main():
     Test:
         * display caption must be "Parking 2D"
         * display size must match WINDOWSIZE (declared in constants.py)
+        * logging should not print anything in to the console
     """
     pygame.init()
     pygame.display.set_mode(WINDOWSIZE)
@@ -39,6 +42,7 @@ def main():
     player = Player(BASICCAR_IMAGE, START_X, START_Y)
     
     game = Game()
+    
     menu = Menu(game, player)
 
     menu.mainMenu()

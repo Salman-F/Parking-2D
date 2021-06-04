@@ -1,5 +1,7 @@
 """Player class
 
+Controls player activities and contains car logic
+
     Attributes:
         name: SALFIC
         date: 03.06.2021
@@ -33,8 +35,8 @@ class Player(pygame.sprite.Sprite):
             y (int): contains starting y position
         
         Test:
-            * start position must be (x,y)
-            * deafult image must be set
+            * the start position must be (x,y)
+            * the deafult image must be set
         """
         pygame.sprite.Sprite.__init__(self)
         self.setImage(imagePath)
@@ -55,7 +57,7 @@ class Player(pygame.sprite.Sprite):
     def backward(self, timeDif):
         """Accelerates the player backward
         
-        Checks if the car is moving forward or backwards and acts apropiat
+        Checks if the car is moving forward or backwards and acts appropiat
             
         Args:
             timeDif (float): contains the time since last frame
@@ -227,7 +229,7 @@ class Player(pygame.sprite.Sprite):
         hit = False
         if pygame.sprite.spritecollide(self, tiles, False, pygame.sprite.collide_mask):
             hit = True
-            logger.info(f"Player hit something!")
+            logger.info(f"Player hit something! >> Level ended")
         return hit
     
     def checkGoalReach(self, goal):
@@ -292,6 +294,7 @@ class Player(pygame.sprite.Sprite):
         hit = self.collisionDetection(tiles)
         goal = self.checkGoalReach(goal)
 
+        logger.info(f"Velocity:{self.velocity}, Acceleration:{self.acceleration}, Position:{self.position}, Angle:{self.angle}")
         return hit, goal
     
     def setImage(self, imagePath):
@@ -302,7 +305,7 @@ class Player(pygame.sprite.Sprite):
         
         Test:
             * the imagePath must be valid
-            * the image must be (changed) the same as found in imagePath
+            * the image must be (changed) to the image found in imagePath
         """
         self.image = pygame.image.load(imagePath).convert_alpha()
         self.image = pygame.transform.rotate(self.image, PLAYER_INIT_ROT)

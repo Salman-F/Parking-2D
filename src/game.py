@@ -1,5 +1,7 @@
 """game
     
+    Controls the gameloop and other UI elements while playing.
+    
     Attributes:
         name: SALFIC
         date: 03.06.2021
@@ -35,12 +37,13 @@ class Game():
         Args:
             player (Player): contains the player to calls specific functions to move the player on surface
             menu (Menu): contains the last menu the user was on
-            level (int): to determine which map to load and which backkgorund to plot on the surface
+            level (int): to determine which map to load and which background to plot on the surface
         
         Test:
             * the right map must be loaded based on the given level parameter
             * the pause button must be clickable
-            * the rec tof the goal must be drawn in gold
+            * the rect of the goal must be drawn in gold
+            * restarting the game should put the player on his start position
         """
         player.setStart(START_X, START_Y)
         
@@ -135,6 +138,8 @@ class Game():
     
     def loadMap(self, layout, background):
         """loads map
+        
+        Initializes a map object that creates all tiles according to the given layout
 
         Args:
             layout (str): contains the path to the csv that is the base of our map
@@ -242,6 +247,7 @@ class Game():
                     working = False
                 if event.type == pygame.MOUSEBUTTONUP:
                         x, y = event.pos
+                        # Checks for collision between the mouse and the rects of the text
                         if restartTextRect.collidepoint(x,y):
                             restart, done = True, True
                             return restart, done
@@ -285,7 +291,7 @@ class Game():
         return textSurface, textRect
     
     def createNewSurface(self):
-        """helper function to create a pause menu or gameend screen
+        """helper function to create a pause menu or game end screen
 
         Returns:
             Surface: contains a new surface with white background

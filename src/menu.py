@@ -1,6 +1,6 @@
 """menu
 
-Displays the menu and handels input from user.
+    Displays the menu and handels input from user.
 
     Attributes:
         name: SALFIC
@@ -41,23 +41,23 @@ class Menu():
         self.background = pygame_menu.BaseImage(image_path=BACK_IMAGE)
         
         self.coin = pygame_menu.BaseImage(image_path=COIN_IMAGE).resize(width=COIN_SIZE, height=COIN_SIZE)
-        
+        # Loads keyboards images
         self.wKey = pygame_menu.BaseImage(image_path=W_KEY).resize(width=KEY_SIZE, height=KEY_SIZE)
         self.sKey = pygame_menu.BaseImage(image_path=S_KEY).resize(width=KEY_SIZE, height=KEY_SIZE)
         self.dKey = pygame_menu.BaseImage(image_path=D_KEY).resize(width=KEY_SIZE, height=KEY_SIZE)
         self.aKey = pygame_menu.BaseImage(image_path=A_KEY).resize(width=KEY_SIZE, height=KEY_SIZE)
         self.hKey = pygame_menu.BaseImage(image_path=H_KEY).resize(width=KEY_SIZE, height=KEY_SIZE)
         self.spaceKey = pygame_menu.BaseImage(image_path=SPACE_KEY).resize(width=3*KEY_SIZE, height=KEY_SIZE)
-        
+        # Loads price images to visualize above cars
         self.price50 = pygame_menu.BaseImage(image_path=PRICE_50).resize(width=PRICE_W, height=PRICE_H)
         self.price100 = pygame_menu.BaseImage(image_path=PRICE_100).resize(width=PRICE_W, height=PRICE_H)
         self.price200 = pygame_menu.BaseImage(image_path=PRICE_200).resize(width=PRICE_W, height=PRICE_H)
-
+        # Loads car images
         self.basicCar = pygame_menu.BaseImage(image_path=BASICCAR_IMAGE).resize(width=MENU_CAR_W, height=MENU_CAR_H).rotate(PLAYER_INIT_ROT)
         self.f1Car = pygame_menu.BaseImage(image_path=F1_IMAGE).resize(width=MENU_CAR_W, height=MENU_CAR_H).rotate(PLAYER_INIT_ROT)
         self.copCar = pygame_menu.BaseImage(image_path=COPCAR_IMAGE).resize(width=MENU_CAR_W, height=MENU_CAR_H).rotate(PLAYER_INIT_ROT)
         self.sportsCar = pygame_menu.BaseImage(image_path=SPORTCAR_IMAGE).resize(width=MENU_CAR_W, height=MENU_CAR_H).rotate(PLAYER_INIT_ROT)
-        
+        # Loads Level previews
         self.levelOnePreview = pygame_menu.BaseImage(image_path=LEVELONE_BACKIMAGE).resize(width=PREVIEW_W, height=PREVIEW_H)
         self.comingSoon = pygame_menu.BaseImage(image_path=COMING_SOON).resize(width=PREVIEW_W, height=PREVIEW_H)
         self.decorator = []
@@ -67,6 +67,7 @@ class Menu():
                                 title_bar_style = pygame_menu.widgets.MENUBAR_STYLE_NONE,
                                 #Menu titel is not used | To get rid of warning that titel and background have same color
                                 title_font_color = BLACK,
+                                title_font_size = FONT_SIZE_GAME + 10,
                                 widget_font_size = WIDGET_SIZE,
                                 widget_font = pygame_menu.font.FONT_8BIT,
                                 widget_margin = WIDGET_MARGIN
@@ -81,7 +82,7 @@ class Menu():
         logger.info("Menus initialized")
     
     def mainMenu(self):
-        """Controls the main menu and shows submenus
+        """Controls the main menu and shows buttons that redirect to other submenus
         
         Test:
             * Menu must be the same size as WINDOWSIZE
@@ -116,6 +117,7 @@ class Menu():
         Test:
             * the score must be set with the help of the decorator
             * the size of this submenu must match WINDOWSIZE
+            * clicking play on a existing level must start the gameloop
         """
         # pygame_menu makes screen scrollable if levels dont fit next to eachother
         playMenu = pygame_menu.Menu(width=WINDOWSIZE[0],height=WINDOWSIZE[1], theme=self.myTheme, title=" ", columns=2, rows=3)
@@ -243,7 +245,7 @@ class Menu():
             * the images must be in the same row as there label
         
         Examples:
-            Forward must be in the same row as the image of self.wKey
+            "Forward" must be in the same row as the image of self.wKey
         """
         
         controlsMenu = pygame_menu.Menu(width=WINDOWSIZE[0],height=WINDOWSIZE[1], theme=self.myTheme, title=" ", columns=2, rows=6)
@@ -341,7 +343,7 @@ class Menu():
         
         Test:
             * the text and image must be on the same hight
-            * the changes should just be shown on the related menu 
+            * the changes should just be shown on the menu the decorator is binded to
         """
         decorator.add_text(y=SCORE_X, x=SCORE_TEXT_Y, text=str(self.score["Score"]), font=pygame_menu.font.FONT_8BIT, size=WIDGET_SIZE, color=BLACK)
         decorator.add_baseimage(y=SCORE_X, x=SCORE_COIN_Y, image=self.coin)
@@ -372,7 +374,7 @@ class Menu():
             Dict: Contains the saved score and cars to enable / disable buttons
         
         Test:
-            * if the file is found
+            * check if file is found
             * if no file is found a default value must be taken
         """
         try:
@@ -392,6 +394,7 @@ class Menu():
         Test:
             * new value must be in given file after completion
             * logging file must contain information if file is not found
+            * if no file is found a new file should be created
         """
         try:
             with open(SCORE_FILE, "wb") as f:

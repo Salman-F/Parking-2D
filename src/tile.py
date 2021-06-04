@@ -1,5 +1,8 @@
 """tile
     
+    Creates a Tile based that will be placed on the game surface.
+    Tiles have rects that help at collision detection.
+    
     Attributes:
         name: SALFIC
         date: 03.06.2021
