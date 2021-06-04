@@ -72,7 +72,7 @@ C:\src>python main.py
 * Create a map with the given 16x16 tiles
 * Please note that all black, green and grey blocks are going to be obstacles in the game
 
-| :exclamation:         Your map must include one brown tile that represents the top left corner of your goal   |
+| :exclamation:         Your map must include one (just one) brown tile that represents the top left corner of your goal   |
 |-----------------------------------------|
 
 * How Big the goal is going to be should be saved in a variable with the numbers of tiles in x and y direction (default is x:6, y:12)
@@ -96,6 +96,16 @@ C:\src>python main.py
 2. An image that shows the design of your map
 
 ## Thanks to all artist
+
+This project is just for personal and educational use. It is not intendet to earn any money with this project.
+
+* Background: Designed by [vectorpouch](https://www.freepik.com/free-vector/city-car-parking-empty-lots-cartoon_5901242.htm#page=1&query=city%20car%20parking&position=6) / Freepik
+* Cars: View@clipartmax.com
+* Futuristic sprite pack: by [Skorpi](https://opengameart.org/users/skorpio)
+* Race sprite pack: by Kenney Vleugels for [Kenney](www.kenney.nl)
+* Font: by [Vic Fieger](https://www.1001fonts.com/users/vicfieger/)
+* Honk noise: by [YouTube](https://youtu.be/FQc5zRy6wBU)
+* Game music: by Luis Zuno (@ansimuz) | [Patreon](https://www.patreon.com/ansimuz)
 
 ## Contributing to Parking 2D
 
