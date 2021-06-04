@@ -70,7 +70,7 @@ C:\src>python main.py
 * How Big the goal is going to be should be saved in a variable with the numbers of tiles in x and y direction (default is x:6, y:12)
 * Your created map with JUST the blocks from [images\maps\customSpriteSheet.png](https://github.com/Salman-F/Parking-2D/blob/main/images/maps/customSpriteSheet.png) should then look something like this.
 
-<img src="https://github.com/Salman-F/Parking-2D/blob/main/images/readme/createMapLayoutpng.png" width="700" height="500">
+<img src="" width="700" height="500">
 * Export this file as csv and the obstacles are done. Now you can start designing your layout
 * Copy your level and add assets, pictures or text on your level
 * Export your copy as an image and the surface the user is going to see is done.
