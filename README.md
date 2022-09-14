@@ -2,7 +2,7 @@
 
 ![GitHub repo size](https://img.shields.io/github/repo-size/Salman-F/Parking-2D)
 ![Github license](https://img.shields.io/github/license/Salman-F/Parking-2D) 
-[![Linkedin](https://img.shields.io/badge/LinkedIn-0077B5?&logo=linkedin&logoColor=white)](www.linkedin.com/in/salman-fichtner)
+[![Linkedin](https://img.shields.io/badge/LinkedIn-0077B5?&logo=linkedin&logoColor=white)](https://linkedin.com/in/salman-fichtner)
 
 Parking 2D is a `university project` that allows
 ` the work with pygame` to ` create a game in python`.
